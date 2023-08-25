@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script src="https://kit.fontawesome.com/6b023bd4ea.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
+</head>
+<body>
+	<script>
+	
+		(function (apiKey) {
+			function createAndAppend(className, parent, type = "div") {
+				const element = document.createElement(type);
+				element.className = className;
+				parent.appendChild(element);
+				return element;
+			}
+			if (!document.querySelector(".container")) {
+				var container = document.createElement("div");
+				const prof69 = "https://i.imgur.com/Uwsw4aa.png";
+				container.className = "container";
+				var chatbox = createAndAppend("chatbox", container);
+				var supportDiv = createAndAppend("chatbox__support", chatbox);
+				var headerDiv = createAndAppend("chatbox__header", supportDiv);
+				var imageDiv = createAndAppend("chatbox__image--header", headerDiv);
+				var profile = document.createElement("img");
+				profile.src = prof69;
+				profile.style.width = "50px";
+				profile.style.height = "50px";
+				profile.classList.add("rounded-svg");
+				imageDiv.appendChild(profile);
+				var contentDiv = createAndAppend("chatbox__content--header", chatbox);
+				var heading = document.createElement("h4");
+				heading.className = "chatbox__heading--header";
+				heading.textContent = "Indifi";
+				var description = document.createElement("p");
+				description.className = "chatbox__description--header";
+				description.textContent = "Indifi Customer Support";
+				contentDiv.appendChild(heading);
+				contentDiv.appendChild(description);
+				headerDiv.appendChild(imageDiv);
+				headerDiv.appendChild(contentDiv);
+				var messagesDiv = document.createElement("div");
+				messagesDiv.className = "chatbox__messages";
+				var innerDiv = document.createElement("div");
+				messagesDiv.appendChild(innerDiv);
+				var footerDiv = document.createElement("div");
+				footerDiv.className = "chatbox__footer";
+				var input = document.createElement("input");
+				input.type = "text";
+				input.placeholder = "Ask me anything about Indifi...";
+				input.style.backgroundColor = "#fff";
+				input.maxLength = 250;
+				const blozum = document.createElement("div");
+				blozum.className = "blozum";
+				blozum.innerHTML =
+					"Powered by <strong><a class='link' href='https://blozum.com/'>Blozum</a></strong>";
+				var sendButton = document.createElement("button");
+				sendButton.className = "chatbox__send--footer send__button";
+				var sendIcon = document.createElement("i");
+				sendIcon.style.fontSize = "24px";
+				sendIcon.style.color = "#f58698";
+				sendButton.appendChild(sendIcon);
+				footerDiv.appendChild(input);
+				footerDiv.appendChild(sendButton);
+				footerDiv.appendChild(blozum);
+				supportDiv.appendChild(headerDiv);
+				supportDiv.appendChild(messagesDiv);
+				supportDiv.appendChild(footerDiv);
+				supportDiv.appendChild(blozum);
+				var buttonDiv = document.createElement("div");
+				buttonDiv.className = "chatbox__button";
+				var button = document.createElement("button");
+				button.className = "button-35";
+				button.id = "chat_button";
+				var image = document.createElement("img");
+				image.src = prof69;
+				image.style.width = "50px";
+				image.style.height = "50px";
+				image.classList.add("rounded-svg");
+				button.appendChild(image);
+				buttonDiv.appendChild(button);
+				chatbox.appendChild(supportDiv);
+				chatbox.appendChild(buttonDiv);
+				container.appendChild(chatbox);
+				document.body.appendChild(container);
+			}
+
+			const localStorage = window.localStorage;
+			var uuid = localStorage.getItem("uuid") || (localStorage.setItem("uuid", uuidv4()), uuidv4());
+			var openButton = document.querySelector(".chatbox__button");
+			var chatBox = document.querySelector(".chatbox__support");
+			var sendButton = document.querySelector(".send__button");
+			var chat_button = document.getElementById("chat_button");
+			var messages = [];
+			openButton.addEventListener("click", () => toggleState(chatBox));
+			sendButton.addEventListener("click", () => onSendButton(chatBox));
+			var node = chatBox.querySelector("input");
+			node.addEventListener("keyup", ({ key }) => {
+				if (key === "Enter") {
+					onSendButton(chatBox);
+				}
+			});
+			var state = false;
+			document.querySelectorAll('.link').forEach(link => {
+				link.innerHTML = '<div><span>' + link.textContent.trim().split('').join('</span><span>') + '</span></div>'
+				link.querySelectorAll('span').forEach(s => s.innerHTML = s.textContent == ' ' ? '&nbsp;' : s.textContent)
+				link.insertAdjacentHTML('beforeend', '<div><svg preserveAspectRatio="none" viewBox="0 0 192 5"><path d="M191.246 4H129C129 4 127.781 4.00674 127 4C114.767 3.89447 108.233 1 96 1C83.7669 1 77.2327 3.89447 65 4C64.219 4.00674 63 4 63 4H0.751923" /></svg></div>')
+			});
+			function toggleState(chatbox) {
+				state = !state;
+				chatbox.classList.toggle("chatbox--active", state);
+				chat_button.style.backgroundColor = state ? "black" : "white";
+			}
+			async function onSendButton(chatbox) {
+				const dotss_old = document.querySelectorAll("#animation_dots");
+				if (dotss_old !== null) {
+					dotss_old.forEach(dot => {
+						dot.remove();
+					})
+				}
+				var textField = chatbox.querySelector("input");
+				var text1 = textField.value;
+				if (text1 === "") {
+					return;
+				}
+				var html =
+					'<div class="messages__item messages__item--operator">' +
+					text1 +
+					"</div>";
+				var chatmessage = chatbox.querySelector(".chatbox__messages");
+				chatmessage.innerHTML = html + chatmessage.innerHTML;
+				chatmessage.scrollTop = chatmessage.scrollHeight;
+				textField.value = "";
+				chatmessage = chatbox.querySelector(".chatbox__messages");
+				const old = chatmessage.innerHTML;
+				chatmessage.innerHTML = '<div class="messages__item messages__item--visitor" id="animation_dots"><div class="typing-animation"><span class="blz_s"></span><span class="blz_s"></span><span class="blz_s"></span></div></div>' + old;
+				chatmessage.scrollTop = chatmessage.scrollHeight;
+				const dotss = document.querySelectorAll("#animation_dots");
+				fetch(
+					"https://u4w8iav0h8.execute-api.ap-south-1.amazonaws.com/default/blozum",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"x-api-key": apiKey,
+						},
+						body: JSON.stringify({
+							message: text1,
+							user: uuid,
+							collection_id: "64e83e0dbdc01980d100",
+						}),
+					}
+				)
+					.then(function (response) {
+						return response.text();
+					})
+					.then(function (botMessage) {
+						chatmessage = chatbox.querySelector(".chatbox__messages");
+						dotss.forEach(dot => {
+							dot.remove();
+						})
+						chatmessage.scrollTop = chatmessage.scrollHeight;
+						try {
+							var jsonData = JSON.parse(botMessage);
+							if ('message' in jsonData && jsonData[message] === "Internal Server Error") {
+								jsonData = "";
+							}
+							if (typeof jsonData === "object") {
+								for (var key in jsonData) {
+									if (jsonData.hasOwnProperty(key)) {
+										dotss.forEach(dot => {
+											dot.remove();
+										})
+										html = "";
+										html += jsonData[key];
+										chatmessage = chatbox.querySelector(".chatbox__messages");
+										chatmessage.innerHTML = html + chatmessage.innerHTML;
+										chatmessage.scrollTop = chatmessage.scrollHeight;
+									}
+								}
+							}
+						} catch (error) {
+							dotss.forEach(dot => {
+								dot.remove();
+							})
+							html = '<div class="messages__item messages__item--visitor">' + botMessage + '</div>';
+							chatmessage = chatbox.querySelector(".chatbox__messages");
+							chatmessage.innerHTML = html + chatmessage.innerHTML;
+							chatmessage.scrollTop = chatmessage.scrollHeight;
+						}
+					});
+			}
+			function updateChatText(chatbox) {
+				var html = "";
+				messages
+					.slice()
+					.reverse()
+					.forEach(function (item, index) {
+						if (item.name === "Blozum") {
+							html +=
+								'<div class="messages__item messages__item--visitor">' +
+								item.message +
+								"</div>";
+						} else if (item.name === "User") {
+							html +=
+								'<div class="messages__item messages__item--operator">' +
+								item.message +
+								"</div>";
+						}
+					});
+				var chatmessage = chatbox.querySelector(".chatbox__messages");
+				chatmessage.innerHTML = html + chatmessage.innerHTML;
+				chatmessage.scrollTop = chatmessage.scrollHeight;
+			}
+			function selectOption(option) {
+				var textField1 = chatBox.querySelector("input");
+				chatBox = document.querySelector(".chatbox__support");
+				var Option1 = "Yes123";
+				var html = "";
+				var chatmessage = chatBox.querySelector(".chatbox__messages");
+				if (option === "Buy") {
+					html = `<div class="messages__item messages__item--visitor">Please pay through this link within the next 5 minutes to confirm your order.<br><br><a href="https://blozum.com/">https://blozum.pay/upi/ quick_pay</a></div>`;
+					setTimeout(function () {
+						chatmessage = chatBox.querySelector(".chatbox__messages");
+						chatmessage.innerHTML = html + chatmessage.innerHTML;
+						chatmessage.scrollTop = chatmessage.scrollHeight;
+					}, 1500);
+				}
+				if (option === "Yes") {
+					Option1 = "blozumdabest01834082340293";
+					html =
+						'<div class="messages__item messages__item--operator">Yes</div>';
+					chatmessage = chatBox.querySelector(".chatbox__messages");
+					chatmessage.innerHTML = html + chatmessage.innerHTML;
+					chatmessage.scrollTop = chatmessage.scrollHeight;
+					var requestOptions = {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"x-api-key": apiKey,
+						},
+						body: JSON.stringify({
+							message: Option1,
+							user: uuid,
+							collection_id: "64e83e0dbdc01980d100",
+						}),
+					};
+					fetch(
+						"https://u4w8iav0h8.execute-api.ap-south-1.amazonaws.com/default/blozum",
+						requestOptions
+					)
+						.then(function (response) {
+							return response.text();
+						})
+						.then(function (response) {
+							var jsonData = JSON.parse(response);
+							if (typeof jsonData === "object") {
+								for (var key in jsonData) {
+									if (jsonData.hasOwnProperty(key)) {
+										html = "";
+										html += jsonData[key];
+										chatmessage = chatBox.querySelector(".chatbox__messages");
+										chatmessage.innerHTML = html + chatmessage.innerHTML;
+										chatmessage.scrollTop = chatmessage.scrollHeight;
+									}
+								}
+							}
+						});
+				} else if (option === "No") {
+					Option1 = "blozumdabest82340978294587";
+					html =
+						'<div class="messages__item messages__item--operator">No</div>';
+					chatmessage = chatbox.querySelector(".chatbox__messages");
+					chatmessage.innerHTML = html + chatmessage.innerHTML;
+					chatmessage.scrollTop = chatmessage.scrollHeight;
+					var requestOptions = {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"x-api-key": apiKey,
+						},
+						body: JSON.stringify({
+							message: Option1,
+							user: uuid,
+							collection_id: "64e83e0dbdc01980d100",
+						}),
+					};
+					fetch(
+						"https://u4w8iav0h8.execute-api.ap-south-1.amazonaws.com/default/blozum",
+						requestOptions
+					)
+						.then(function (response) {
+							return response.text();
+						})
+						.then(function (response) {
+							var jsonData = JSON.parse(response);
+							if (typeof jsonData === "object") {
+								for (var key in jsonData) {
+									if (jsonData.hasOwnProperty(key)) {
+										html = "";
+										html += jsonData[key];
+										chatmessage = chatBox.querySelector(".chatbox__messages");
+										chatmessage.innerHTML = html + chatmessage.innerHTML;
+										chatmessage.scrollTop = chatmessage.scrollHeight;
+									}
+								}
+							}
+						});
+				}
+			}
+			window.selectOption = selectOption;
+		})("alpxB6HNUO5cRcsum585y5m0822rflAMHldwW8Of");
+				</script>
+</body>
+</html>
